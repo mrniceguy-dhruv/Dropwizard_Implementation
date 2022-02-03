@@ -1,9 +1,13 @@
 package dropwizardhibernate;
 
+import dropwizardhibernate.auth.GreetingAuthenticator;
 import dropwizardhibernate.core.Employee;
+import dropwizardhibernate.core.User;
 import dropwizardhibernate.db.EmployeeDAO;
 import dropwizardhibernate.resources.EmployeesResource;
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -38,6 +42,12 @@ public class DWGettingStartedApplication
     @Override
     public void run(final DWGettingStartedConfiguration configuration,
                     final Environment environment) {
+        environment.jersey().register(new AuthDynamicFeature(
+                new BasicCredentialAuthFilter.Builder<User>()
+                        .setAuthenticator(new GreetingAuthenticator(configuration.getLogin(),
+                                configuration.getPassword()))
+                        .setRealm("SECURITY REALM")
+                        .buildAuthFilter()));
         final EmployeeDAO employeeDAO
                 = new EmployeeDAO(hibernateBundle.getSessionFactory());
 

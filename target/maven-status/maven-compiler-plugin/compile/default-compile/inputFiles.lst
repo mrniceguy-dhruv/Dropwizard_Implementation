@@ -1,5 +1,8 @@
+/Volumes/E Drive/Dropwizard Applications/Dropwizard_Hibernate/src/main/java/dropwizardhibernate/auth/GreetingAuthenticator.java
 /Volumes/E Drive/Dropwizard Applications/Dropwizard_Hibernate/src/main/java/dropwizardhibernate/core/Employee.java
+/Volumes/E Drive/Dropwizard Applications/Dropwizard_Hibernate/src/main/java/dropwizardhibernate/core/User.java
 /Volumes/E Drive/Dropwizard Applications/Dropwizard_Hibernate/src/main/java/dropwizardhibernate/DWGettingStartedConfiguration.java
+/Volumes/E Drive/Dropwizard Applications/Dropwizard_Hibernate/src/main/java/dropwizardhibernate/resources/SecuredHelloResource.java
 /Volumes/E Drive/Dropwizard Applications/Dropwizard_Hibernate/src/main/java/dropwizardhibernate/resources/EmployeesResource.java
 /Volumes/E Drive/Dropwizard Applications/Dropwizard_Hibernate/src/main/java/dropwizardhibernate/DWGettingStartedApplication.java
 /Volumes/E Drive/Dropwizard Applications/Dropwizard_Hibernate/src/main/java/dropwizardhibernate/db/EmployeeDAO.java

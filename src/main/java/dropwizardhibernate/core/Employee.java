@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "employees")
 @NamedQueries({
-        @NamedQuery(name = "core.Employee.findAll",
+        @NamedQuery(name = "core.Employee.findAl",
                 query = "select e from Employee e"),
         @NamedQuery(name = "core.Employee.findByName",
                 query = "select e from Employee e "

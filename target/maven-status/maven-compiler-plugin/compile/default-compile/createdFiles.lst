@@ -1,6 +1,9 @@
 dropwizardhibernate/core/Employee.class
-dropwizardhibernate/DWGettingStartedConfiguration.class
-dropwizardhibernate/resources/EmployeesResource.class
+dropwizardhibernate/resources/SecuredHelloResource.class
 dropwizardhibernate/DWGettingStartedApplication.class
+dropwizardhibernate/auth/GreetingAuthenticator.class
 dropwizardhibernate/DWGettingStartedApplication$1.class
 dropwizardhibernate/db/EmployeeDAO.class
+dropwizardhibernate/DWGettingStartedConfiguration.class
+dropwizardhibernate/core/User.class
+dropwizardhibernate/resources/EmployeesResource.class

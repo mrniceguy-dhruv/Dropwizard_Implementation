@@ -29,7 +29,7 @@ public class EmployeeDAO extends AbstractDAO<Employee> {
      * @return list of all employees stored in the database
      */
     public List<Employee> findAll() {
-        return list(namedTypedQuery("core.Employee.findAll"));
+        return list(namedTypedQuery("core.Employee.findAl"));
     }
 
     /**
