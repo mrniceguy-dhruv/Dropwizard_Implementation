@@ -1,5 +1,6 @@
 package dropwizardhibernate.core;
 
+import javax.inject.Named;
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -11,7 +12,11 @@ import java.util.Objects;
         @NamedQuery(name = "core.Employee.findByName",
                 query = "select e from Employee e "
                         + "where e.firstName like :name "
-                        + "or e.lastName like :name")
+                        + "or e.lastName like :name"),
+        @NamedQuery(name = "core.Employee.remove", query = "DELETE FROM Employee e "
+                + "where e.id = :id"),
+//        @NamedQuery(name = "core.Employee.findById",query = "select e from Employee"
+//                + " where e.id = :id")
 })
 public class Employee {
 

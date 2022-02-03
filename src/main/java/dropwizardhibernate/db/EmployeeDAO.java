@@ -63,4 +63,19 @@ public class EmployeeDAO extends AbstractDAO<Employee> {
     public Optional<Employee> findById(long id) {
         return Optional.ofNullable(get(id));
     }
+
+//    public Optional<Employee> findByIdAndUserId(long id) {
+//        return Optional.ofNullable(
+//                uniqueResult(
+//                        namedTypedQuery("core.Employee.findById")
+//                                .setParameter("id", id)
+//                )
+//        );
+//    }
+
+    public void delete(Long id) {
+        namedQuery("core.Employee.remove")
+                .setParameter("id", id)
+                .executeUpdate();
+    }
 }

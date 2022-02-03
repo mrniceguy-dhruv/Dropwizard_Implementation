@@ -6,13 +6,13 @@ import dropwizardhibernate.db.EmployeeDAO;
 import dropwizardhibernate.db.UserDAO;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.LongParam;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalLong;
 
 @Path("/employees")
 @Produces(MediaType.APPLICATION_JSON)
@@ -72,8 +72,8 @@ public class EmployeesResource {
     @GET
     @Path("/{id}")
     @UnitOfWork
-    public Optional<Employee> findById(@PathParam("id") LongParam id, @Auth User user) {
-        return employeeDAO.findById(id.get());
+    public Optional<Employee> findById(@PathParam("id") OptionalLong id, @Auth User user) {
+        return employeeDAO.findById(id.getAsLong());
     }
 
     @GET
@@ -82,5 +82,36 @@ public class EmployeesResource {
     public List<User> findAll() {
         return userDAO.findAll();
     }
+
+    @DELETE
+    @Path("/{id}")
+    @UnitOfWork
+    public Employee deleteEmployee(@PathParam("id") OptionalLong id,
+                                   @Auth User user) {
+        Employee employee
+                = findEmployeeOrThrowException(id, user);
+        employeeDAO.delete(id.getAsLong());
+        return employee;
+    }
+
+    private Employee findEmployeeOrThrowException(OptionalLong id,
+                                                  @Auth User user) {
+        Employee employee = employeeDAO.findById(id.getAsLong())
+                .orElseThrow(()
+                -> new NotFoundException("Employee requested was not found."));
+        return employee;
+    }
+
+//    @DELETE
+//    @Path("/{id}")
+//    @UnitOfWork
+//    public Bookmark deleteBookmark(@PathParam("id") IntParam id,
+//                                   @Auth User user) {
+//        Bookmark bookmark
+//                = findBookmarkOrTrowException(id, user);
+//        bookmarkDAO.delete(id.get());
+//        return bookmark;
+//    }
+
 }
 
