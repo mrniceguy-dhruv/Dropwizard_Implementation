@@ -3,8 +3,9 @@
 ## Config YAML
 <p> For mysql database connectivity, enter user,password,database location and driver name. </p>
 
-## Run With Postman
-command: java -jar target/Dropwizard_Hibernate-1.0-SNAPSHOT.jar server config.yml
+## Run
+command: java -jar target/Dropwizard_Hibernate-1.0-SNAPSHOT.jar server config.yml <br>
+Prefer Postman
 
 ## Resources
 
