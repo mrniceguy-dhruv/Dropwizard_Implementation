@@ -1,7 +1,10 @@
 package dropwizardhibernate.resources;
 
 import dropwizardhibernate.core.Employee;
+import dropwizardhibernate.core.User;
 import dropwizardhibernate.db.EmployeeDAO;
+import dropwizardhibernate.db.UserDAO;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 
@@ -19,14 +22,17 @@ public class EmployeesResource {
      * The DAO object to manipulate employees.
      */
     private final EmployeeDAO employeeDAO;
+    private final UserDAO userDAO;
 
     /**
      * Constructor.
      *
      * @param employeeDAO DAO object to manipulate employees.
+     * @param userDAO
      */
-    public EmployeesResource(EmployeeDAO employeeDAO) {
+    public EmployeesResource(EmployeeDAO employeeDAO, UserDAO userDAO) {
         this.employeeDAO = employeeDAO;
+        this.userDAO = userDAO;
     }
 
     /**
@@ -42,7 +48,7 @@ public class EmployeesResource {
     @UnitOfWork
     public List<Employee> findByName(
             @QueryParam("name") Optional<String> name
-    ) {
+            ) {
         if (name.isPresent()) {
             return employeeDAO.findByName(name.get());
         } else {
@@ -66,8 +72,15 @@ public class EmployeesResource {
     @GET
     @Path("/{id}")
     @UnitOfWork
-    public Optional<Employee> findById(@PathParam("id") LongParam id) {
+    public Optional<Employee> findById(@PathParam("id") LongParam id, @Auth User user) {
         return employeeDAO.findById(id.get());
+    }
+
+    @GET
+    @Path("/users")
+    @UnitOfWork
+    public List<User> findAll() {
+        return userDAO.findAll();
     }
 }
 
