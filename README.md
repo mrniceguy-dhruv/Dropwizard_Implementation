@@ -3,6 +3,34 @@
 ## Config YAML
 <p> For mysql database connectivity, enter user,password,database location and driver name. </p>
 
+## Mysql Databse
+- Database creation:
+```
+create database DWGettingStarted;
+use DWGettingStarted;
+```
+- Employee table creation:
+```
+create table employees(
+    -- auto-generated primary key
+    id bigint primary key not null auto_increment,
+    first_name varchar(255) not null,
+    last_name varchar(255) not null,
+    -- employee position
+    e_position  varchar(255) not null,
+    phone  varchar(255) not null,
+    e_mail varchar(255) not null
+);
+```
+- User table creation for Authentication, insert some values:
+```
+create table users(
+	id bigint not null primary key auto_increment,
+    username varchar(255) not null,
+    password varchar(255) not null
+);
+```
+
 ## Run
 command: java -jar target/Dropwizard_Hibernate-1.0-SNAPSHOT.jar server config.yml <br>
 Prefer Postman
