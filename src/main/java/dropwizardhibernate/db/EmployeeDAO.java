@@ -53,6 +53,8 @@ public class EmployeeDAO extends AbstractDAO<Employee> {
         return persist(employee);
     }
 
+    public Employee put(Employee employee) {return persist(employee);}
+
     /**
      * Method looks for an employee by her id.
      *

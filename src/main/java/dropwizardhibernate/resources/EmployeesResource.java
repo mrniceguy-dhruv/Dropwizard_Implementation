@@ -1,18 +1,23 @@
 package dropwizardhibernate.resources;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Strings;
 import dropwizardhibernate.core.Employee;
 import dropwizardhibernate.core.User;
 import dropwizardhibernate.db.EmployeeDAO;
 import dropwizardhibernate.db.UserDAO;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalLong;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 @Path("/employees")
 @Produces(MediaType.APPLICATION_JSON)
@@ -23,6 +28,9 @@ public class EmployeesResource {
      */
     private final EmployeeDAO employeeDAO;
     private final UserDAO userDAO;
+
+    private static final Logger LOGGER
+            = LoggerFactory.getLogger(EmployeesResource.class);
 
     /**
      * Constructor.
@@ -81,6 +89,28 @@ public class EmployeesResource {
     @UnitOfWork
     public List<User> findAll() {
         return userDAO.findAll();
+    }
+
+    @PUT
+    @Path("/{id}")
+    @UnitOfWork
+    public Response modifyBookmark(@PathParam("id") Long id,Employee employee,
+                                   @Auth User user) {
+
+        if (employee != null) {
+            employee.setId(id);
+            employeeDAO.put(employee);
+            return Response.ok(employee).build();
+        } else
+            return Response.status(Response.Status.NOT_FOUND).build();
+
+    }
+
+    protected void purgeMap(final Map<String, String> changeMap) {
+        changeMap.remove("id");
+        changeMap.entrySet().removeIf(
+                entry -> Strings.isNullOrEmpty(entry.getValue())
+        );
     }
 
     @DELETE
